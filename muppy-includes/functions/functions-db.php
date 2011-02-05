@@ -88,4 +88,42 @@ function fetch_muppy_url($_key){
     db_exit();
     return $key_data['_url'];
 }
+/**
+ * Return last key and generate a new one
+ */
+function fetch_new_muppy_url($_url){
+    global $muppy_conf,$link;
+    db_connect();
+    if(mysql_num_rows(mysql_query("SELECT `_url` FROM `muppy_urls` WHERE `_url` = '".$_url."'"))){
+        $sql = "SELECT * FROM `muppy_urls` WHERE `_url` = '".$_url."'";
+        $result=mysql_query($sql)or die("MySQL Error: ".mysql_error());;
+        $key_data = mysql_fetch_assoc($result);
+        db_exit();
+        return $key_data['_key'];
+    }else{
+        $sql = "SELECT * FROM `muppy_urls` ORDER BY `muppy_urls`.`_id` DESC LIMIT 0, 1 ";
+        $result=mysql_query($sql)or die("MySQL Error: ".mysql_error());;
+        $key_data = mysql_fetch_assoc($result);
+        $new_key=get_next_key($key_data['_key']);
+        $sql = "INSERT INTO  `".$muppy_conf['db_name']."`.`muppy_urls` (
+                `_id` ,
+                `_key` ,
+                `_url` ,
+                `_date_added` ,
+                `_date_last_accessed` ,
+                `_views`
+                )
+                VALUES (
+                NULL ,  
+                '$new_key',  
+                '".$_url."',  
+                '".date('Y-m-d H:i:s')."',  
+                '".date('Y-m-d H:i:s')."',  
+                '0'
+                );";
+        mysql_query($sql, $link) or die("MySQL Error: ".mysql_error() );
+        db_exit();
+        return $new_key;
+    }
+}
 ?>

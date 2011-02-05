@@ -22,8 +22,9 @@
  */
 $uri = explode(",", process_uri($_SERVER['REQUEST_URI']));
 $_key = substr($uri[0],1);
-
-//key lookup and redirection
+/**
+ * Perform key lookup and if required, do redirection
+ */
 if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
     //perform db lookup and redirect if found
     if(db_key_lookup($_key)){
@@ -31,18 +32,21 @@ if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
         //update record and return long url
         $longURL=fetch_muppy_url($_key);
         
-        //get long url and redirect
+        //redirect
         header("Location: ".$longURL);
         exit;
     }
 }
-
-//url shortening condition
+/**
+ * Perform URL shortening
+ */
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
     if(isset($_GET['url'])){
-        echo "**debug** api_key: ".$muppy_conf['api_key']."\n";
-        echo "**debug**     url: ".$_GET['url']."\n";
-        //do shortening URL
+        $new_url=$muppy_conf['site_url'].fetch_new_muppy_url($_GET['url']);
+        if(isset($_GET['gui']) && $_GET['gui']=="false"){
+            echo $new_url;
+            exit;
+        }
     }
 }
 ?>
