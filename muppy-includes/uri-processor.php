@@ -22,10 +22,23 @@
  */
 $uri = explode(",", process_uri($_SERVER['REQUEST_URI']));
 $view = substr($uri[0],1);
-//echo "**debug**: view=$view\n";
-//echo "**debug**: uri[1]=$uri[1]\n";
-//echo "**debug** api_key: ".$_GET['api_key'];
+
+echo "<pre>";
+echo "**debug**: view=$view\n";
+echo "**debug**: uri[1]=$uri[1]\n";
+echo "**debug** api_key: ".$_GET['api_key']."\n";
+
+//url lookup and redirection
+
+
+
+//url shortening condition
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
-    //add conditions for shortening URL
+    if(isset($_GET['url'])){
+        echo "**debug** api_key: ".$muppy_conf['api_key']."\n";
+        echo "**debug** api_key: ".$_GET['url']."\n";
+        //do shortening URL
+    }
 }
+echo "</pre>";
 ?>
