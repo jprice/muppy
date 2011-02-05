@@ -20,7 +20,25 @@
  * You should have received a copy of the GNU General Public License
  * along with Muppy.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('muppy-includes/config.php');
-require_once('muppy-includes/functions.php');
-require_once('muppy-includes/uri-processor.php');
+function process_uri($s){
+    global $muppy_conf;
+    $n = $muppy_conf['site_url'];
+    $lc = substr($n, -1);
+    if($lc == "/"){
+        $n = substr($n, 0, -1);
+    }
+    $sp = strrpos($n,"/");
+    $n = substr($n, $sp+1);
+    $lc = substr($s, -1);
+    if($lc != "/"){
+        $s = $s."/";
+    }
+    if (strpos($s, $n)){
+        $s = substr($s,strpos($s, $n)
+                  +strlen($n),strlen($s));
+    }
+    $s = substr($s,0,strlen($s)-1);
+    $c = substr_count($s, '/');
+    return($s.",".$c);
+}
 ?>

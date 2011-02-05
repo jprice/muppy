@@ -20,10 +20,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Muppy.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * Settings array.
- */
 $muppy_conf = array(
     'site_url'            =>   'http://example.org/',
     'site_title'          =>   'Example Site',

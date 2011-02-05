@@ -20,7 +20,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Muppy.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('muppy-includes/config.php');
-require_once('muppy-includes/functions.php');
-require_once('muppy-includes/uri-processor.php');
+$uri = explode(",", process_uri($_SERVER['REQUEST_URI']));
+$view = substr($uri[0],1);
+//echo "**debug**: view=$view\n";
+//echo "**debug**: uri[1]=$uri[1]\n";
+//echo "**debug** api_key: ".$_GET['api_key'];
+if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
+    //add conditions for shortening URL
+}
 ?>

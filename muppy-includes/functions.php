@@ -20,7 +20,13 @@
  * You should have received a copy of the GNU General Public License
  * along with Muppy.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once('muppy-includes/config.php');
-require_once('muppy-includes/functions.php');
-require_once('muppy-includes/uri-processor.php');
+$functions_dir='muppy-includes/functions';
+if ($h = opendir($functions_dir)) {
+    while (false !== ($f = readdir($h))) {
+        if($f!="." && $f!=".."){
+            require_once('functions/'.$f);
+        }
+    }
+    closedir($h);
+}
 ?>
