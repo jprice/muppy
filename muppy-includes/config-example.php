@@ -30,9 +30,7 @@ $muppy_conf = array(
     'db_address'          =>   'localhost',
     'db_username'         =>   'username',
     'db_password'         =>   'password',
-    'server_timezone'     =>   'UTC',
-    'html_lang'           =>   'en',
-    'charset'             =>   'utf-8'
+    'server_timezone'     =>   'UTC'
 );
 /**
  * --------------------------------------------------*
