@@ -26,17 +26,18 @@ $view = substr($uri[0],1);
 echo "<pre>";
 echo "**debug**: view=$view\n";
 echo "**debug**: uri[1]=$uri[1]\n";
-echo "**debug** api_key: ".$_GET['api_key']."\n";
 
 //url lookup and redirection
-
+if($uri[1]==1 && !ereg('[^a-z0-9]', $view)){
+    //perform db lookup and redirect if found
+}
 
 
 //url shortening condition
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
     if(isset($_GET['url'])){
         echo "**debug** api_key: ".$muppy_conf['api_key']."\n";
-        echo "**debug** api_key: ".$_GET['url']."\n";
+        echo "**debug**     url: ".$_GET['url']."\n";
         //do shortening URL
     }
 }
