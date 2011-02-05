@@ -72,7 +72,7 @@ function db_key_lookup($_key){
 /**
  * Update record and return long URL
  */
-function get_muppy_url($_key){
+function fetch_muppy_url($_key){
     global $muppy_conf,$link;
     $sql = "SELECT * FROM `muppy_urls` "
     ."WHERE `_key` = '".$_key."'";

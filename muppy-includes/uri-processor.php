@@ -23,13 +23,13 @@
 $uri = explode(",", process_uri($_SERVER['REQUEST_URI']));
 $_key = substr($uri[0],1);
 
-//url lookup and redirection
+//key lookup and redirection
 if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
     //perform db lookup and redirect if found
     if(db_key_lookup($_key)){
         
         //update record and return long url
-        $longURL=get_muppy_url($_key);
+        $longURL=fetch_muppy_url($_key);
         
         //get long url and redirect
         header("Location: ".$longURL);
