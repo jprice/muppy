@@ -21,17 +21,21 @@
  * along with Muppy.  If not, see <http://www.gnu.org/licenses/>.
  */
 $uri = explode(",", process_uri($_SERVER['REQUEST_URI']));
-$view = substr($uri[0],1);
-
-echo "<pre>";
-echo "**debug**: view=$view\n";
-echo "**debug**: uri[1]=$uri[1]\n";
+$_key = substr($uri[0],1);
 
 //url lookup and redirection
-if($uri[1]==1 && !ereg('[^a-z0-9]', $view)){
+if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
     //perform db lookup and redirect if found
+    if(db_key_lookup($_key)){
+        
+        //update record and return long url
+        $longURL=get_muppy_url($_key);
+        
+        //get long url and redirect
+        header("Location: ".$longURL);
+        exit;
+    }
 }
-
 
 //url shortening condition
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
@@ -41,5 +45,4 @@ if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
         //do shortening URL
     }
 }
-echo "</pre>";
 ?>

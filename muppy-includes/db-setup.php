@@ -61,5 +61,4 @@ if (!table_exists('muppy_urls', $muppy_conf['db_name'])) {
     mysql_query($sql, $link) or die("MySQL Error: ".mysql_error() );
 }
 db_exit(); 
-
 ?>

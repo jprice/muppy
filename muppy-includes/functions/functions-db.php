@@ -55,4 +55,37 @@ function table_exists($table,$db) {
     }
     return FALSE;
 }
+/**
+ * Lookup URL key
+ */
+function db_key_lookup($_key){
+    global $muppy_conf,$link;
+    db_connect();
+    if(mysql_num_rows(mysql_query("SELECT `_id` FROM `muppy_urls` WHERE".
+    " `_key` = '".$_key."'"))){
+        return true;
+    }else{
+        return false;
+    }
+    db_exit();
+}
+/**
+ * Update record and return long URL
+ */
+function get_muppy_url($_key){
+    global $muppy_conf,$link;
+    $sql = "SELECT * FROM `muppy_urls` "
+    ."WHERE `_key` = '".$_key."'";
+    db_connect();
+    $result=mysql_query($sql)or die("MySQL Error: ".mysql_error());;
+    $key_data = mysql_fetch_assoc($result);
+    $x=$key_data['_views']+1;
+    $sql = "UPDATE `muppy_urls` SET "
+    ."`_date_last_accessed` =  '".date('Y-m-d H:i:s')."', "
+    ."`_views` = ".$x
+    ." WHERE `muppy_urls`.`_key` = ".$key_data['_key'].";";
+    mysql_query($sql)or die("MySQL Error: ".mysql_error());
+    db_exit();
+    return $key_data['_url'];
+}
 ?>
