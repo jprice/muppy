@@ -42,9 +42,13 @@ if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
  */
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
     if(isset($_GET['url'])){
-        $new_url=$muppy_conf['site_url'].fetch_new_muppy_url($_GET['url']);
+        $_SESSION['new_url']=$muppy_conf['site_url'].fetch_new_muppy_url($_GET['url']);
         if(isset($_GET['gui']) && $_GET['gui']=="false"){
-            echo $new_url;
+            echo $_SESSION['new_url'];
+            unset($_SESSION['new_url']);
+            exit;
+        } else {
+            header("Location: ".$muppy_conf['site_url']);
             exit;
         }
     }

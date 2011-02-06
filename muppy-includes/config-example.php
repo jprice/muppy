@@ -39,6 +39,17 @@ $muppy_conf = array(
  * --------------------------------------------------*
  */
 /**
+ * Start session management.
+ * Note: I have been having issues with sessions,
+ *       see: http://bugs.php.net/bug.php?id=20720&edit=1
+ *       I think my issues are Debian specific?!
+ */
+if (!isset($_SESSION['MuppyuP'])) {
+    @session_start();
+    session_register("MuppyuP");
+    $_SESSION['MuppyuP'] = 1;    
+}
+/**
  * Set server date/time as defined in includes/config.php
  * See: http://www.php.net/manual/en/timezones.php for a list
  * of supported timezones.
