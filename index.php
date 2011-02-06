@@ -42,7 +42,7 @@ require_once('muppy-includes/uri-processor.php');
     <article>
         <div class="content">
            <?php if(isset($new_url)){?>
-           <p class="newurl">Your new short is URL: <a href="<?php echo $new_url; ?>" target="_blank"><?php echo $new_url; ?></a></p>
+           <p class="newurl">Your new short URL is: <a href="<?php echo $new_url; ?>" target="_blank"><?php echo $new_url; ?></a></p>
            <?php }else{?>
            <h2>About</h2>
            <p><?php echo $muppy_conf['site_title'] ?> is <a href="<?php echo $muppy_conf['homepage'] ?>" title="<?php echo $muppy_conf['fullname'] ?>'s homepage."><?php echo $muppy_conf['fullname'] ?>'s</a> personal URL shortening service.</p>
