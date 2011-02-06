@@ -51,7 +51,7 @@ require_once('muppy-includes/uri-processor.php');
     </article>
     <footer>
         <div class="footer">
-           <p><?php echo $muppy_conf['site_title'] ?> is powered by <a href="http://corenominal.org/muppy-project/" title="Muppy Project">Muppy</a>, URL shortening software derived from <a href="http://ur1.ca/" title="ur1.ca">ur1</a>.<br>Full source available under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" title="View the GNU General Public License.">GNU General Public License</a>.</p>
+           <p><?php echo $muppy_conf['site_title'] ?> is powered by <a href="http://corenominal.org/muppy-project/" title="Muppy Project">Muppy</a>, URL shortening software derived from <a href="http://ur1.ca/" title="ur1.ca">ur1</a>.<br>Full <a href="http://corenominal.org/muppy-project/download/" title="Download Muppy">source available</a> under the terms of the <a href="http://www.gnu.org/licenses/gpl.html" title="View the GNU General Public License.">GNU General Public License</a>.</p>
        </div>
     </footer>
     </body>
