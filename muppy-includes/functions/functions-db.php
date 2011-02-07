@@ -83,7 +83,7 @@ function fetch_muppy_url($_key){
     $sql = "UPDATE `muppy_urls` SET "
     ."`_date_last_accessed` =  '".date('Y-m-d H:i:s')."', "
     ."`_views` = ".$x
-    ." WHERE `muppy_urls`.`_key` = ".$key_data['_key'].";";
+    ." WHERE `muppy_urls`.`_key` = '".$key_data['_key']."';";
     mysql_query($sql)or die("MySQL Error: ".mysql_error());
     db_exit();
     return $key_data['_url'];
