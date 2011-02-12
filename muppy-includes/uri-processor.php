@@ -50,11 +50,23 @@ if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
         }
         switch ($output) {
             case 'plain':
+                header("Content-Type: text/plain");
                 echo $_SESSION['new_url'];
                 unset($_SESSION['new_url']);
                 exit;
                 break;
+            case 'json':
+                $arr = array('longurl'=>$_GET['url'],'shorturl'=>$_SESSION['new_url']);
+                header('Content-Type: application/json');
+                /**
+                 * str_replace bug? See: http://muppy.org/h
+                 */
+                echo str_replace('\\/', '/', json_encode($arr));
+                unset($_SESSION['new_url']);
+                exit;
+                break;
             case 'xml':
+                header('Content-Type: text/xml');
                 echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
                 echo '  <muppy>'."\n";
                 echo '      <longurl>'.$_GET['url'].'</longurl>'."\n";
