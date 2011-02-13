@@ -58,6 +58,7 @@ if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
             case 'json':
                 $arr = array('longurl'=>$_GET['url'],'shorturl'=>$_SESSION['new_url']);
                 header('Content-Type: application/json');
+                header('Access-Control-Allow-Origin: *');
                 /**
                  * str_replace bug? See: http://muppy.org/h
                  */
