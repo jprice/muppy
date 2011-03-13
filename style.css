@@ -38,7 +38,7 @@ a:hover {color:black;background:white;}
              text-indent:-9999px;
              width:640px;
              height:299px;
-             background:#black url(logo.png) 0px 0px no-repeat;
+             background:black url(logo.png) 0px 0px no-repeat;
 }
 
 .content{text-align:center;}
