@@ -42,7 +42,8 @@ if($uri[1]==1 && !ereg('[^a-z0-9]', $_key)){
  */
 if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
     if(isset($_GET['url'])){
-        $_SESSION['new_url']=$muppy_conf['site_url'].fetch_new_muppy_url($_GET['url']);
+        $long_url=$_GET['url'];
+        $short_url=$muppy_conf['site_url'].fetch_new_muppy_url($long_url);
         if(!isset($_GET['output'])){
             $output='html';
         } else {
@@ -51,36 +52,77 @@ if(isset($_GET['api_key']) && $_GET['api_key']==$muppy_conf['api_key']){
         switch ($output) {
             case 'plain':
                 header("Content-Type: text/plain");
-                echo $_SESSION['new_url'];
-                unset($_SESSION['new_url']);
+                echo $short_url;
                 exit;
                 break;
             case 'json':
-                $arr = array('longurl'=>$_GET['url'],'shorturl'=>$_SESSION['new_url']);
+                $arr = array('longurl'=>$long_url,'shorturl'=>$short_url);
                 header('Content-Type: application/json');
                 header('Access-Control-Allow-Origin: *');
                 /**
                  * str_replace bug? See: http://muppy.org/h
                  */
                 echo str_replace('\\/', '/', json_encode($arr));
-                unset($_SESSION['new_url']);
                 exit;
                 break;
             case 'xml':
                 header('Content-Type: text/xml');
                 echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
                 echo '  <muppy>'."\n";
-                echo '      <longurl>'.$_GET['url'].'</longurl>'."\n";
-                echo '      <shorturl>'.$_SESSION['new_url'].'</shorturl>'."\n";
+                echo '      <longurl>'.$long_url.'</longurl>'."\n";
+                echo '      <shorturl>'.$short_url.'</shorturl>'."\n";
                 echo '  </muppy>';
-                unset($_SESSION['new_url']);
                 exit;
                 break;
             case 'html':
+                $_SESSION['new_url']=$short_url;
                 header("Location: ".$muppy_conf['site_url']);
                 exit;
                 break;
         }
+    }
+}
+/**
+ * Return random record
+ */
+if(isset($_GET['random'])){
+    $r = explode("||",fetch_random_muppy_url());
+    $short_url=$muppy_conf['site_url'].$r[0];
+    $long_url=$r[1];
+    if(!isset($_GET['output'])){
+        $output='redirect';
+    } else {
+        $output=$_GET['output'];
+    }
+    switch ($output) {
+        case 'plain':
+            header("Content-Type: text/plain");
+            echo $short_url;
+            exit;
+            break;
+        case 'json':
+            $arr = array('longurl'=>$long_url,'shorturl'=>$short_url);
+            header('Content-Type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            /**
+             * str_replace bug? See: http://muppy.org/h
+             */
+            echo str_replace('\\/', '/', json_encode($arr));
+            exit;
+            break;
+        case 'xml':
+            header('Content-Type: text/xml');
+            echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+            echo '  <muppy>'."\n";
+            echo '      <longurl>'.$long_url.'</longurl>'."\n";
+            echo '      <shorturl>'.$short_url.'</shorturl>'."\n";
+            echo '  </muppy>';
+            exit;
+            break;
+        case 'redirect':
+            header("Location: ".$short_url);
+            exit;
+            break;
     }
 }
 ?>

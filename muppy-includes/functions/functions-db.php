@@ -126,4 +126,18 @@ function fetch_new_muppy_url($_url){
         return $new_key;
     }
 }
+/**
+ * Return random key
+ */
+function fetch_random_muppy_url(){
+    global $muppy_conf,$link;
+    db_connect();
+    $offset_result = mysql_query("SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM `muppy_urls`");
+    $offset_row = mysql_fetch_object($offset_result); 
+    $offset = $offset_row->offset;
+    $result = mysql_query("SELECT * FROM `muppy_urls` LIMIT $offset, 1");
+    $key_data = mysql_fetch_assoc($result);
+    db_exit();
+    return $key_data['_key']."||".$key_data['_url'];
+}
 ?>
