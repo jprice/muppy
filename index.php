@@ -46,8 +46,8 @@ require_once('muppy-includes/uri-processor.php');
            <?php
            unset($_SESSION['new_url']);
            }else{?>
-           <h2>About</h2>
            <p><?php echo $muppy_conf['site_title'] ?> is <a href="<?php echo $muppy_conf['homepage'] ?>" title="<?php echo $muppy_conf['fullname'] ?>'s homepage."><?php echo $muppy_conf['fullname'] ?>'s</a> personal URL shortening service.</p>
+           <p><a href="<?php echo $muppy_conf['site_url'] ?>random" title="Click here to visit a random URL." target="_blank">Feeling lucky? Visit a random URL now!</a></p>
            <?php } ?>
        </div>
     </article>
